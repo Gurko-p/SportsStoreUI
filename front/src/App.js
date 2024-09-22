@@ -12,6 +12,7 @@ import SportsPage from "./components/sportsstore/SportsPage"
 import LoginPage from "./components/auth/LoginPage"
 import About from "./components/navMenu/About";
 import Register from "./components/navMenu/Register";
+import Cart from "./components/cart/Cart"
 
 import store from "./app/store"
 import { checkLoggedIn } from "./features/auth/authSlice"
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       { path: "about", Component: About },
       { path: "register", Component: Register },
       { path: "admin", Component: Admin },
+      { path: "cart", Component: Cart },
     ], 
     loader: protectedLoader
   },
