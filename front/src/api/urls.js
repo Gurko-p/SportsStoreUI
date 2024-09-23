@@ -15,6 +15,7 @@ export const urls = {
         list: "api/orders/list",
         item: (id) => `api/orders/item/${id}`,
         create: "api/orders/create",
+        createOrderCarts: "api/orders/createOrderCarts",
         update: (id) => `api/orders/update/${id}`,
         remove: (id) => `api/orders/remove/${id}`
     },

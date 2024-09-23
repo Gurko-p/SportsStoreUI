@@ -11,12 +11,6 @@ export const cartsApi = {
     },
 
     async createCart(cart) {
-        const cart = {
-            "id": 0,
-            "quantity": 1,
-            "orderId": 1,
-            "productId": 1
-          };
-        return axiosInstance.post(urls.carts.create(id), cart)
+        return axiosInstance.post(urls.carts.create, cart)
     },
 }

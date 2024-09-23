@@ -106,7 +106,10 @@ const authSlice = createSlice({
             state.isLoading = action.payload
         },
         countProductsInCartChange(state, action) {
-            
+            if(action.payload === 0){
+                state.itemCountInCart = [];
+                return;
+            }
             if(!state.itemCountInCart.some(id => id === action.payload)){
                 state.itemCountInCart.push(action.payload);
             }

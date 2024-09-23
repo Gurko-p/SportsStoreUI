@@ -20,26 +20,48 @@ export default function Cart() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh' }}>
       <Container>
-        <div style={{ textAlign: 'center' }}>
-          <h2>Корзина</h2>
-          <div style={{ display: 'inline-block' }}>
-            {carts.map((product) => (
-              <div key={product.id}>
-                <Product product={product} onRemove={removeHandler} />
+        {
+          carts.length === 0
+            ?
+            <div>
+              <div style={{ textAlign: 'center' }}>
+                <h2>Корзина пуста</h2>
+                <Button
+                  type='primary'
+                  variant="contained"
+                  color={"primary"}
+                  onClick={() => navigate('/')}
+                >
+                  Вернуться к списку товаров
+                </Button>
               </div>
-            ))}
-          </div>
-          <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-            <Button
-              type='primary'
-              variant="contained"
-              color={"primary"}
-              onClick={() => navigate('/about')}
-            >
-              Оформить заказ
-            </Button>
-          </Box>
-        </div>
+            </div>
+
+            :
+            <div style={{ textAlign: 'center' }}>
+              <h2>Корзина</h2>
+              <div style={{ display: 'inline-block' }}>
+                {carts.map((product) => (
+                  <div key={product.id}>
+                    <Product product={product} onRemove={removeHandler} />
+                  </div>
+                ))}
+              </div>
+              <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                <Button
+                  type='primary'
+                  variant="contained"
+                  color={"primary"}
+                  onClick={() => navigate('/order')}
+                >
+                  Оформить заказ
+                </Button>
+              </Box>
+            </div>
+
+        }
+
+
       </Container>
     </div>
   );

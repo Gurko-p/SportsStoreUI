@@ -2,17 +2,15 @@ import React from "react"
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate,
   redirect,
 } from "react-router-dom"
-import UserList from "./components/admin/UserList"
 import Admin from "./components/admin/Admin"
-import ProductList from "./components/sportsstore/ProductList"
 import SportsPage from "./components/sportsstore/SportsPage"
 import LoginPage from "./components/auth/LoginPage"
 import About from "./components/navMenu/About";
 import Register from "./components/navMenu/Register";
 import Cart from "./components/cart/Cart"
+import Order from "./components/order/Order"
 
 import store from "./app/store"
 import { checkLoggedIn } from "./features/auth/authSlice"
@@ -27,6 +25,7 @@ const router = createBrowserRouter([
       { path: "register", Component: Register },
       { path: "admin", Component: Admin },
       { path: "cart", Component: Cart },
+      { path: "order", Component: Order },
     ], 
     loader: protectedLoader
   },
