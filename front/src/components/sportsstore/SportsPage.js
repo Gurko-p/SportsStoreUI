@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, AppBar, Toolbar, Typography, Container } from "@mui/material";
+import { Box, Typography, Container } from "@mui/material";
 import Sidebar from "./Sidebar";
 import ProductList from "./ProductList";
 

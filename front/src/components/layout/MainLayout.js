@@ -3,9 +3,7 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
-  Box,
-  Divider,
+  Button
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { removeLoggedIn } from "../../features/auth/authSlice";

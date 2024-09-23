@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux"
 import "./productItem.styles.css";
 import Box from "@mui/material/Box";
@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {countProductsInCartChange, itemCountInCart} from '../../features/auth/authSlice';
 
-export default function Product({ product }) {
+export default function Product({ product, onRemove }) {
   const key = "cart";
   const dispatch = useDispatch();
   const countInCart = useSelector(itemCountInCart); 
@@ -50,6 +50,9 @@ export default function Product({ product }) {
     }
     dispatch(countProductsInCartChange(product.id));
     removeFromCart(product);
+    if (onRemove) {
+      onRemove(product.id); // Вызываем функцию, если она передана
+    }
   };
 
   function removeFromCart(product) {
