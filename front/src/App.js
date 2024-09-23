@@ -11,6 +11,7 @@ import About from "./components/navMenu/About";
 import Register from "./components/navMenu/Register";
 import Cart from "./components/cart/Cart"
 import Order from "./components/order/Order"
+import Error404 from "./components/error/Error404"
 
 import store from "./app/store"
 import { checkLoggedIn } from "./features/auth/authSlice"
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
     loader: protectedLoader
   },
   { path: "/login", Component: LoginPage },
+  { path: "*", Component: Error404 }
 ])
 
 function App(){ return <RouterProvider router={router} />}
