@@ -5,6 +5,7 @@ import { Container, Button, Box, TextField } from '@mui/material';
 import { countProductsInCartChange, authUser } from '../../features/auth/authSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { ordersApi } from '../../api/ordersAPI';
+import { alertService, severityType } from '../snackBar/alertService'
 
 export default function Order() {
 
@@ -45,7 +46,16 @@ export default function Order() {
             addedCarts.push({ quantity: 1, productId: cart.id });
         });
         let order = { userId: user.userName, address: address, carts: addedCarts };
-        ordersApi.createOrderCarts(order);
+        let createdOrder;
+        try{
+            createdOrder = await ordersApi.createOrderCarts(order);
+        }
+        catch(error){
+            alertService.show("Ошибка при оформлении заказа!", severityType.error);
+            return;
+        }
+        
+        alertService.show(`Ваш заказ №${createdOrder.data.id} успешно сформирован!`, severityType.success)
         navigate('/');
     };
 
