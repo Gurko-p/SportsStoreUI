@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { itemCountInCart } from "../../features/auth/authSlice";
 import { FaShoppingCart } from "react-icons/fa";
-import { useNavigate, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function CartIcon() {
   const { length } = useSelector(itemCountInCart);

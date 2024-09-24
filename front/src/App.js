@@ -4,7 +4,6 @@ import {
   RouterProvider,
   redirect,
 } from "react-router-dom";
-import Admin from "./components/admin/Admin";
 import SportsPage from "./components/sportsstore/SportsPage";
 import LoginPage from "./components/auth/LoginPage";
 import About from "./components/navMenu/About";
@@ -26,7 +25,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: SportsPage },
       { path: "about", Component: About },
-      { path: "admin", Component: Admin },
       { path: "cart", Component: Cart },
       { path: "order", Component: Order },
       { path: "myOrders", Component: MyOrders },
@@ -40,11 +38,12 @@ const router = createBrowserRouter([
 function App() {
   const { open, message, severity } = useSelector((state) => state.snackBar);
   return (
-  <>
-    <RouterProvider router={router} />
-    <SnackBarComponent open={open} message={message} severity={severity} />
-  </>
-)};
+    <>
+      <RouterProvider router={router} />
+      <SnackBarComponent open={open} message={message} severity={severity} />
+    </>
+  );
+}
 
 export default App;
 

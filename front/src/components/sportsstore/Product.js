@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import "./productItem.styles.css";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -7,12 +7,15 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {countProductsInCartChange, itemCountInCart} from '../../features/auth/authSlice';
+import {
+  countProductsInCartChange,
+  itemCountInCart,
+} from "../../features/auth/authSlice";
 
 export default function Product({ product, onRemove }) {
   const key = "cart";
   const dispatch = useDispatch();
-  const countInCart = useSelector(itemCountInCart); 
+  const countInCart = useSelector(itemCountInCart);
 
   function addToCart(product) {
     if (isCartEmpty()) {
@@ -51,7 +54,7 @@ export default function Product({ product, onRemove }) {
     dispatch(countProductsInCartChange(product.id));
     removeFromCart(product);
     if (onRemove) {
-      onRemove(product.id); // Вызываем функцию, если она передана
+      onRemove(product.id);
     }
   };
 
@@ -71,8 +74,12 @@ export default function Product({ product, onRemove }) {
 
   return (
     <>
-      <Box sx={{ minWidth: 350, maxWidth: 350, marginBottom: '15px' }}>
-        <Card variant="outlined" align="center" sx={{ backgroundColor: "rgb(222 228 235)", mt: 2, fontSize: 15 }}>
+      <Box sx={{ minWidth: 350, maxWidth: 350, marginBottom: "15px" }}>
+        <Card
+          variant="outlined"
+          align="center"
+          sx={{ backgroundColor: "rgb(222 228 235)", mt: 2, fontSize: 15 }}
+        >
           <React.Fragment>
             <CardContent>
               <Typography
@@ -91,13 +98,15 @@ export default function Product({ product, onRemove }) {
             >
               {product.price + " BYN"}
             </Typography>
-            <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CardActions sx={{ display: "flex", justifyContent: "center" }}>
               <Button
                 variant="contained"
                 color={isExistsInCart(product) ? "success" : "primary"}
                 onClick={() => tryAddProduct(product)}
               >
-                {isExistsInCart(product) ? "Удалить из корзины" : "Добавить в корзину" }
+                {isExistsInCart(product)
+                  ? "Удалить из корзины"
+                  : "Добавить в корзину"}
               </Button>
             </CardActions>
           </React.Fragment>

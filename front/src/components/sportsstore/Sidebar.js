@@ -23,7 +23,7 @@ export default function Sidebar({ setSelectedCategory }) {
         padding: "10px",
         minWidth: "150px",
         maxWidth: "150px",
-        backgroundColor: 'inherit',
+        backgroundColor: "inherit",
         marginRight: "10px",
       }}
     >
