@@ -13,6 +13,7 @@ export const urls = {
     },
     orders: {
         list: "api/orders/list",
+        myOrders: (userId) => `api/orders/myOrders/${userId}`,
         item: (id) => `api/orders/item/${id}`,
         create: "api/orders/create",
         createOrderCarts: "api/orders/createOrderCarts",

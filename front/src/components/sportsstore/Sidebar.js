@@ -48,7 +48,7 @@ export default function Sidebar({ setSelectedCategory }) {
         variant="contained"
         onClick={() => handleCategoryClick({ id: 0 })}
       >
-        All
+        Все
       </Button>
     </div>
   );

@@ -8,9 +8,9 @@ import Admin from "./components/admin/Admin"
 import SportsPage from "./components/sportsstore/SportsPage"
 import LoginPage from "./components/auth/LoginPage"
 import About from "./components/navMenu/About";
-import Register from "./components/navMenu/Register";
 import Cart from "./components/cart/Cart"
 import Order from "./components/order/Order"
+import MyOrders from "./components/order/MyOrders"
 import Error404 from "./components/error/Error404"
 
 import store from "./app/store"
@@ -23,10 +23,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: SportsPage },
       { path: "about", Component: About },
-      { path: "register", Component: Register },
       { path: "admin", Component: Admin },
       { path: "cart", Component: Cart },
       { path: "order", Component: Order },
+      { path: "myOrders", Component: MyOrders },
     ], 
     loader: protectedLoader
   },

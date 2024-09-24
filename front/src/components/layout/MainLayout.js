@@ -41,10 +41,10 @@ export default function MainLayout() {
                   Home
                 </Button>
                 <Button color="white" onClick={() => navigate("/about")}>
-                  About
+                  О проекте
                 </Button>
-                <Button color="white" onClick={() => navigate("/register")}>
-                  Register
+                <Button color="white" onClick={() => navigate("/myOrders")}>
+                  Мои заказы
                 </Button>
               </div>
           </div>
