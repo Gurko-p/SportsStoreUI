@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Product from "../sportsstore/Product";
-import { Container, Button, Box, TextField } from '@mui/material';
-import { countProductsInCartChange, authUser, isLoggedIn } from '../../features/auth/authSlice';
-import { useDispatch, useSelector } from "react-redux";
+import { Container } from '@mui/material';
+import { authUser, isLoggedIn } from '../../features/auth/authSlice';
+import { useSelector } from "react-redux";
 import { ordersApi } from '../../api/ordersAPI';
-import { alertService, severityType } from '../snackBar/alertService';
 import OrderItem from './OrderItem';
 
 
@@ -16,7 +13,7 @@ export default function MyOrders() {
     const [myOrders, setMyOrders] = useState([]);
 
     useEffect(() => {
-        if(isLoggedInState && user.userName){
+        if(isLoggedInState && user?.userName){
             ordersApi.getMyOrders(user.userName)
             .then(response => response.data)
             .then(p => setMyOrders(p));

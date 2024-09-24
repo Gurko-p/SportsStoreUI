@@ -10,30 +10,54 @@ import { alertService, severityType } from '../snackBar/alertService'
 export default function Order() {
 
     const navigate = useNavigate();
-    const [carts, setCarts] = useState([]);
+    const [products, setProducts] = useState([]);
     const [total, setTotal] = useState(0);
     const dispatch = useDispatch();
     const [address, setAddress] = useState('');
     const user = useSelector(authUser);
+    const [productQuantity, setQuantity] = useState([]);
 
     useEffect(() => {
-        let cartsArray = JSON.parse(localStorage.getItem("cart")) ?? [];
-        setCarts(cartsArray);
-        let totalSum = calculateTotalCost(cartsArray);
+        let productsArray = JSON.parse(localStorage.getItem("cart")) ?? [];
+        setProducts(productsArray);
+        createKeyPairProductQuantity(productsArray)
+        let totalSum = calculateTotalCost(productsArray);
         setTotal(totalSum);
     }, []);
+
+
+    function createKeyPairProductQuantity(productsArray) {
+        const arr = productsArray.map(product => ({
+            productId: product.id,
+            quantity: 1
+        }));
+        setQuantity(arr);
+        console.log(productQuantity);
+    }
+
+
+    const increaseQuantity = (id) => {
+        setQuantity(productQuantity.map(item =>
+            item.productId === id ? { ...item, quantity: item.quantity + 1 } : item
+        ));
+    };
+
+    const decreaseQuantity = (id) => {
+        setQuantity(productQuantity.map(item =>
+            item.productId === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+        ));
+    };
 
     function calculateTotalCost(arr) {
         return () => arr.reduce((accumulator, product) => {
             console.log("calculateTotalCost");
             return accumulator + (product.price);
         }, 0);
-
     }
 
     function removeHandler(id) {
-        let arr = carts.filter(cart => cart.id !== id);
-        setCarts(arr);
+        let arr = products.filter(cart => cart.id !== id);
+        setProducts(arr);
         let totalSum = calculateTotalCost(arr);
         setTotal(totalSum);
     }
@@ -41,23 +65,28 @@ export default function Order() {
     const makeOrder = async () => {
         localStorage.removeItem("cart")
         dispatch(countProductsInCartChange(0));
-        const addedCarts = []; 
-        carts.forEach(cart => {
-            addedCarts.push({ quantity: 1, productId: cart.id });
+        const addedCarts = [];
+        products.forEach(product => {
+            addedCarts.push({ quantity: getProductQuantity(product.id), productId: product.id });
         });
+        console.log(addedCarts, "addedCarts");
         let order = { userId: user.userName, address: address, carts: addedCarts };
         let createdOrder;
-        try{
+        try {
             createdOrder = await ordersApi.createOrderCarts(order);
         }
-        catch(error){
+        catch (error) {
             alertService.show("Ошибка при оформлении заказа!", severityType.error);
             return;
         }
-        
+
         alertService.show(`Ваш заказ №${createdOrder.data.id} успешно сформирован!`, severityType.success)
         navigate('/');
     };
+
+    function getProductQuantity(productId) {
+        return productQuantity.find(x => x.productId === productId)?.quantity
+    }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh' }}>
@@ -79,9 +108,19 @@ export default function Order() {
                     </Box>
                     <h2>Состав заказа:</h2>
                     <div style={{ display: 'inline-block' }}>
-                        {carts.map((product) => (
+                        {products.map((product) => (
                             <div key={product.id}>
                                 <Product product={product} onRemove={removeHandler} />
+                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <Button onClick={() => increaseQuantity(product.id)}>
+                                        <span style={{ fontSize: "15px", fontWeight: "bolder" }}>+</span>
+                                    </Button>
+                                    <span style={{ fontSize: "25px", fontWeight: "bolder" }}>{getProductQuantity(product.id)}</span>
+                                    <Button onClick={() => decreaseQuantity(product.id)}>
+                                        <span style={{ fontSize: "15px", fontWeight: "bolder" }}>-</span>
+                                    </Button>
+                                </div>
+
                             </div>
                         ))}
                     </div>
@@ -90,6 +129,7 @@ export default function Order() {
                             type='primary'
                             variant="contained"
                             color={"warning"}
+                            disabled={products.length === 0}
                             onClick={async () => await makeOrder()}
                         >
                             Оформить заказ
