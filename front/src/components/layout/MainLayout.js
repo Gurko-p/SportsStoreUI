@@ -9,12 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeLoggedIn } from "../../features/auth/authSlice";
 import { useNavigate, Outlet } from "react-router-dom";
 import CartIcon from "../cart/CartIcon";
-import SnackBarComponent from "../snackBar/SnackBar";
 
 export default function MainLayout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { open, message, severity } = useSelector((state) => state.snackBar);
 
   const logout = () => {
     dispatch(removeLoggedIn());
@@ -56,7 +54,6 @@ export default function MainLayout() {
           </div>
         </Toolbar>
       </AppBar>
-      <SnackBarComponent open={open} message={message} severity={severity} />
       <Outlet />
     </div>
   );

@@ -24,7 +24,7 @@ export default function MyOrders() {
         <div style={{ display: 'flex', justifyContent: 'center', minHeight: '100vh' }}>
             <Container>
                 <div style={{ textAlign: 'left' }}>
-                    <h2 style={{ color: "rgba(239,129,31,0.84)" }}>Мои заказы</h2>
+                    <h2 style={{ color: "rgba(239,129,31,0.84)" }}>{ myOrders.length ? "Мои заказы" : "Заказов пока нет"}</h2>
                     <div>
                         { myOrders.map((order) => (
                             <div key={order.orderId}>

@@ -19,8 +19,6 @@ export default function LoginPage() {
 
   const submitForm = (event) => {
     event.preventDefault();
-    console.log(email, "email");
-    console.log(password, "password");
     dispatch(userLogin({ email: email, password: password }));
   };
 
